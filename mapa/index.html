@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+        <title>Mapa MinecatTransit</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+
+        <div class="titlediv">
+            <img src="MineCat_Transit_2019-21_1.png">
+            <p>Mapa MinecatTransit</p>
+        </div>
+
+        <div id="mapdiv"></div>
+
+        <div class="iconbutton" id="menuicon">
+            <div class="menucontent">
+                <div id = "about" class="menuelement">About</div>
+                <div class="spacer"></div>
+                <div id = "updatemap" class="menuelement">Update Map</div>
+                <div class="spacer"></div>
+                <div id = "clearmap" class="menuelement">Clear Map</div>
+                <div class="spacer"></div>
+                <div id = "autoupdate" class="menuelement">Auto Update</div>
+                <div class="spacer"></div>
+                <div id = "stopautoupdate" class="menuelement">Stop Auto Update</div>
+                <div class="spacer"></div>
+                <div id = "closepopup" class="menuelement">Close Popup</div>
+            </div>
+            <img src="menu_white_18dp.svg">
+        </div>
+
+        <div id="aboutpage">
+            <div class="iconbutton" id="closeabout"><img src="keyboard_arrow_down_white_18dp.svg"></div>
+            <h2>About</h2>
+            <p>This web app allows you to visualize the current position of trains in the Minecraft server, updated in real time.</p>
+            <p>Designed and programmed by Jan Viñas (janitus1234@gmail.com). To render the map, the open-source javascript library Leaflet is used.</p>
+            <h3>How to use</h3>
+            <p>To update the map, tap it or press the "Update Map" button on the bottom-left menu.</p>
+            <p>To get information of a train, press its icon. A popup will appear. To close the popup, click anywhere on the map or select "Close Popup" on the menu. The x button is not currently working.</p>
+            <p>If you want to automatically update the map every second, use the "Auto Update" and "Stop Auto Update" buttons on the menu.</p>
+        </div>
+
+    </body>
+
+    <script src="main.js"></script>
+    <script src="buttons.js"></script>
+</html>
