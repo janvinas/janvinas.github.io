@@ -3,7 +3,7 @@ var autoupdate = setInterval(function(){
 }, 1000);
 var currentPopup;
 const http = new XMLHttpRequest();
-const url = "http://mine.cat:8176/api/gettrains";
+const url = "https://api.mine.cat/api/gettrains";
 
 var map = L.map('mapdiv', {
     crs: L.CRS.Simple,
