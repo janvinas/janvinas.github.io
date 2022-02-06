@@ -16,15 +16,6 @@ map.fitBounds(bounds);
 
 var trainsLayer = L.layerGroup().addTo(map);
 
-
-var icon446 = L.icon({
-    iconUrl: 'icons/es446v.png',
-    
-    iconSize: [40, 48],
-    iconAnchor: [20, 24],
-    popupAnchor: [0, 0]
-});
-
 var trainIcon = L.Icon.extend({
     options:{
         iconSize: [40, 48],
@@ -44,6 +35,8 @@ function getIcon(trainName){
         return new trainIcon({iconUrl: 'icons/es450v.png'});
     }else if(trainName.includes('Euromed')){
         return new trainIcon({iconUrl: 'icons/es130.png'});
+    }else if(trainName.includes('RL1') || trainName.includes('RL2')){
+        return new trainIcon({iconUrl: 'icons/es-fgc231.png'});
     }else{
         return new L.Icon.Default();
     }
@@ -58,18 +51,20 @@ function updateMap(){
     http.open("GET", url, true);
     http.send();
     http.onreadystatechange = (e) => {
-        var httpResponse = JSON.parse(http.responseText);
-        console.log(httpResponse);
-        clearMap();
-        for(x in httpResponse){
-            trainname = x;
-            traincoords = httpResponse[x];
-            var coordx = traincoords.substring(traincoords.indexOf(":") + 1, traincoords.indexOf(","));
-            var coordz = traincoords.substring(traincoords.lastIndexOf(",") + 1, traincoords.length)
-            
-            var trainIcon = getIcon(trainname);
-            var marker = L.marker([convertRange(coordz, [-3106, 4576], [4576, -3106]), coordx], {icon: trainIcon}).bindPopup(trainname).addTo(trainsLayer);
-            if(trainname == currentPopup) marker.openPopup();
+        if(http.readyState == 4 && http.status == 200){
+            var httpResponse = JSON.parse(http.responseText);
+            console.debug(httpResponse);
+            clearMap();
+            for(x in httpResponse){
+                trainname = x;
+                traincoords = httpResponse[x];
+                var coordx = traincoords.substring(traincoords.indexOf(":") + 1, traincoords.indexOf(","));
+                var coordz = traincoords.substring(traincoords.lastIndexOf(",") + 1, traincoords.length)
+                
+                var trainIcon = getIcon(trainname);
+                var marker = L.marker([convertRange(coordz, [-3106, 4576], [4576, -3106]), coordx], {icon: trainIcon}).bindPopup(trainname).addTo(trainsLayer);
+                if(trainname == currentPopup) marker.openPopup();
+            }
         }
     }
 

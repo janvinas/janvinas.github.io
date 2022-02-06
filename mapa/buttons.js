@@ -7,6 +7,7 @@ document.getElementById("clearmap").onclick = function(){
 }
 
 document.getElementById("autoupdate").onclick = function(){
+    if(autoupdate != undefined) return;
     autoupdate = setInterval(function(){ 
         updateMap();  
     }, 1000);
@@ -14,6 +15,7 @@ document.getElementById("autoupdate").onclick = function(){
 
 document.getElementById("stopautoupdate").onclick = function(){
     clearInterval(autoupdate);
+    autoupdate = undefined;
 }
 
 document.getElementById("closepopup").onclick = function(){
