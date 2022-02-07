@@ -16,16 +16,18 @@ map.fitBounds(bounds);
 
 var trainsLayer = L.layerGroup().addTo(map);
 
-var trainIcon = L.Icon.extend({
-    options:{
-        iconSize: [40, 48],
-        iconAnchor: [20, 24],
-        popupAnchor: [0, -20]
-    }
-});
+var iconScale = localStorage.getItem("iconsize") != null ? localStorage.getItem("iconsize") : 1;
 
 function getIcon(trainName){
-    if(trainName.includes('R1') || trainName.includes('R4') ||trainName.includes('R8')){
+    var trainIcon = L.Icon.extend({
+        options:{
+            iconSize: [40 * iconScale, 48 * iconScale],
+            iconAnchor: [20 * iconScale, 24 * iconScale],
+            popupAnchor: [0, -20 * iconScale]
+        }
+    });
+
+    if(trainName.includes('R1') || trainName.includes('R4')){
         return new trainIcon({iconUrl: 'icons/es446v.png'});
     }else if(trainName.includes('S1')){
         return new trainIcon({iconUrl: 'icons/es-fgc113.png'}); //no existeix la serie 115
@@ -37,6 +39,22 @@ function getIcon(trainName){
         return new trainIcon({iconUrl: 'icons/es130.png'});
     }else if(trainName.includes('RL1') || trainName.includes('RL2')){
         return new trainIcon({iconUrl: 'icons/es-fgc231.png'});
+    }else if(trainName.includes('L8')){
+        return new trainIcon({iconUrl: 'icons/es-fgc213.png'});
+    }else if(trainName.includes('R8')){
+        return new trainIcon({iconUrl: 'icons/es464v.png'});
+    }else if(trainName.includes('L12')){
+        return new trainIcon({iconUrl: 'icons/es-fgc113.png'}); //no existeix la serie 114
+    }else if(trainName.includes('FMBL4')){
+        return new trainIcon({iconUrl: 'icons/es-mbcn2000r.png'});
+    }else if(trainName.includes('FMBL5')){
+        return new trainIcon({iconUrl: 'icons/es-mbcn6000.png'});
+    }else if(trainName.includes('C1') || trainName.includes('C2')){
+        return new trainIcon({iconUrl: 'icons/es446.png'});
+    }else if(trainName.includes('C3')){
+        return new trainIcon({iconUrl: 'icons/es592.png'});
+    }else if(trainName.includes('Bus')){
+        return new trainIcon({iconUrl: 'icons/bus.png', iconSize: [40 * iconScale, 40* iconScale]});
     }else{
         return new L.Icon.Default();
     }
@@ -55,6 +73,7 @@ function updateMap(){
             var httpResponse = JSON.parse(http.responseText);
             console.debug(httpResponse);
             clearMap();
+            setIconSize();
             for(x in httpResponse){
                 trainname = x;
                 traincoords = httpResponse[x];
@@ -81,6 +100,22 @@ function onPopupOpen(e){
 function onMapClick(e){
     currentPopup = undefined;
     updateMap();
+}
+
+function setIconSize(){
+    var slider = document.getElementById("iconsize");
+    if(slider.value == 0){
+        iconScale = 0.5;
+    }else if(slider.value == 1){
+        iconScale = 0.75;
+    }else if(slider.value == 2){
+        iconScale = 1;
+    }else if(slider.value == 3){
+        iconScale = 1.5;
+    }else{
+        iconScale = 1;
+    }
+    localStorage.setItem("iconsize", iconScale);
 }
 
 map.on('popupopen', onPopupOpen);
