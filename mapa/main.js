@@ -16,7 +16,8 @@ map.fitBounds(bounds);
 
 var trainsLayer = L.layerGroup().addTo(map);
 
-var iconScale = localStorage.getItem("iconsize") != null ? localStorage.getItem("iconsize") : 1;
+var storedIconSize = localStorage.getItem("iconsize") != null ? localStorage.getItem("iconsize") : 1;
+document.getElementById("iconsize").value = storedIconSize;
 
 function getIcon(trainName){
     var trainIcon = L.Icon.extend({
@@ -115,7 +116,7 @@ function setIconSize(){
     }else{
         iconScale = 1;
     }
-    localStorage.setItem("iconsize", iconScale);
+    localStorage.setItem("iconsize", slider.value);
 }
 
 map.on('popupopen', onPopupOpen);
