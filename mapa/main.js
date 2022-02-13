@@ -31,7 +31,7 @@ function getIcon(trainName){
     if(trainName.includes('R1') || trainName.includes('R4')){
         return new trainIcon({iconUrl: 'icons/es446v.png'});
     }else if(trainName.includes('S1')){
-        return new trainIcon({iconUrl: 'icons/es-fgc113.png'}); //no existeix la serie 115
+        return new trainIcon({iconUrl: 'icons/115-fgcsim-original.png'}); //no existeix la serie 115
     }else if(trainName.includes('S2')){
         return new trainIcon({iconUrl: 'icons/es-fgc213.png'});
     }else if(trainName.includes('R2')){
